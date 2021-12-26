@@ -25,7 +25,7 @@ def main():
     ac.send_keys_to_element(drive.find_element_by_css_selector('input.tribeName'),tn)
     ac.click(drive.find_element_by_css_selector('a.button.start.primary.flex-grow-2'))
     ac.perform()
-    ui.WebDriverWait(drive,600).until(lambda x:x.find_element_by_css_selector('div.window-handle'))
+    ui.WebDriverWait(drive,600).until(lambda x:x.find_element_by_css_selector('div.LeaderboardWindow'))
     drive.quit()
 
 if __name__=='__main__':
