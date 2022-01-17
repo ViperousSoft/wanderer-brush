@@ -14,7 +14,7 @@ def main():
     parser.add_argument('-a','--audio',action='store_false',help='turn on the background music')
     parser.set_defaults(count=1,tribe='',group='')
     option=parser.parse_args()
-    count,tn,gn,mode,mute=option.count,option.tribe,option.group,(option.mode is 'castle'),option.audio
+    count,tn,gn,mode,mute=option.count,option.tribe,option.group,(option.mode=='castle'),option.audio
     if count<=0:parser.error('illegal argument: count')
 
     os.system('ipconfig /flushdns')
