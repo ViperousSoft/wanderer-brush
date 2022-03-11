@@ -1,0 +1,48 @@
+const {app,BrowserWindow,ipcMain,Menu}=require("electron");
+const path=require("path");
+const got=require("got");
+function window(){
+    let win=new BrowserWindow({
+        webPreferences:{
+            nodeIntegration:true,
+            contextIsolation:false
+        }
+    });
+    switch(process.platform){
+        case "win32":
+            win.setIcon("icon.ico");
+            break;
+        case "linux":
+            win.setIcon("icons/256x256.png");
+            break;
+        default:break;
+    }
+    win.loadFile("index.html");
+}
+function ready(){
+    let menu=Menu.buildFromTemplate([
+        {
+            label:"File",
+            submenu:[
+                {
+                    label:"New Window",
+                    click:window,
+                    accelerator:"Ctrl+N"
+                }
+            ]
+        }
+    ]);
+    Menu.setApplicationMenu(menu);
+    window();
+}
+ipcMain.on("got",(e,a,b)=>{
+    got(`https://wanderers.io/client/server/EU/${a}/${b}`).then(r=>{
+        e.sender.send("gotr",`wss://${r.body}.wanderers.io`);
+    });
+});
+app.on("ready",ready);
+app.on("window-all-closed",()=>{
+    if(process.platform!=="darwin"){
+        app.quit();
+    }
+});

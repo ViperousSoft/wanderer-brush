@@ -1,0 +1,9 @@
+input{
+    font-family: monospace;
+    border-radius: 4px;
+}
+body{
+    font-family: monospace;
+    background-color: lightgray;
+    user-select: none;
+}

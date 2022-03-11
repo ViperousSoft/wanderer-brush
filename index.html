@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="style.css" type="text/css" rel="stylesheet">
+        <script src="support.js"></script>
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <button id="start" onclick="start()">Start</button>
+        <button id="stop" onclick="stop()" disabled>Stop</button>
+        <hr>
+        Mode
+        <br>
+        <input type="radio" name="mode" id="castle" checked="checked">Castle
+        <input type="radio" name="mode">Tribes
+        <br>
+        Group Name
+        <br>
+        <input id="gn" type="text">
+        <br>
+        Tribe Name
+        <br>
+        <input id="tn" type="text">
+        <br>
+        WebSocket URL
+        <br>
+        <input id="wsurl" type="text">
+        <br>
+        Interval
+        <br>
+        <input id="cnt" type="number" min="1">
+    </body>
+</html>
