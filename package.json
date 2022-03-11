@@ -16,8 +16,8 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "electron": "^16.0.8",
-    "electron-builder": "^22.14.5"
+    "electron": "^16.1.0",
+    "electron-builder": "^22.14.13"
   },
   "build": {
     "win": {
@@ -46,6 +46,6 @@
     }
   },
   "dependencies": {
-    "got": "^11.8.2"
+    "got": "^11.8.3"
   }
 }
