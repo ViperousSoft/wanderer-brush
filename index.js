@@ -13,7 +13,7 @@ function window(){
             win.setIcon("icon.ico");
             break;
         case "linux":
-            win.setIcon("icons/256x256.png");
+            win.setIcon(`${__dirname}/icons/256x256.png`);
             break;
         default:break;
     }
