@@ -1,8 +1,8 @@
 const {app,BrowserWindow,ipcMain,Menu}=require("electron");
-const path=require("path");
 const got=require("got");
 function window(){
     let win=new BrowserWindow({
+        show:false,
         webPreferences:{
             nodeIntegration:true,
             contextIsolation:false
@@ -18,6 +18,9 @@ function window(){
         default:break;
     }
     win.loadFile("index.html");
+    win.once("ready-to-show",()=>{
+        win.show();
+    });
 }
 function ready(){
     let menu=Menu.buildFromTemplate([
@@ -28,6 +31,11 @@ function ready(){
                     label:"New Window",
                     click:window,
                     accelerator:"Ctrl+N"
+                },
+                {
+                    label:"Exit",
+                    click:()=>{app.quit();},
+                    accelerator:"Ctrl+Q"
                 }
             ]
         }
