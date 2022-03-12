@@ -16,8 +16,8 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "electron": "^16.0.8",
-    "electron-builder": "^22.14.5"
+    "electron": "^16.1.0",
+    "electron-builder": "^22.14.13"
   },
   "build": {
     "win": {
@@ -26,7 +26,8 @@
           "target": "nsis",
           "arch": [
             "x64",
-            "ia32"
+            "ia32",
+            "arm64"
           ]
         }
       ]
@@ -36,16 +37,26 @@
       "target": [
         {
           "target": "deb",
-          "arch": "x64"
+          "arch": [
+            "x64",
+            "ia32",
+            "arm64",
+            "armv7l"
+          ]
         },
         {
           "target": "rpm",
-          "arch": "x64"
+          "arch": [
+            "x64",
+            "ia32",
+            "arm64",
+            "armv7l"
+          ]
         }
       ]
     }
   },
   "dependencies": {
-    "got": "^11.8.2"
+    "got": "^11.8.3"
   }
 }
