@@ -10,7 +10,7 @@ function window(){
     });
     switch(process.platform){
         case "win32":
-            win.setIcon("icon.ico");
+            win.setIcon(`${__dirname}/icon.ico`);
             break;
         case "linux":
             win.setIcon(`${__dirname}/icons/256x256.png`);
