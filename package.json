@@ -1,7 +1,7 @@
 {
   "name": "wanderer-brush",
   "version": "0.5.1",
-  "description": "wanderer-brush brushes wanderers",
+  "description": "Wanderer Brush Brushes Wanderers",
   "main": "index.js",
   "homepage": "https://github.com/Tom-abc/wanderer-brush",
   "scripts": {
@@ -14,7 +14,7 @@
     "email": "wwlhsszq@163.com",
     "url": "https://github.com/Tom-abc"
   },
-  "license": "ISC",
+  "license": "GPL-3.0-or-later",
   "devDependencies": {
     "electron": "^16.1.0",
     "electron-builder": "^22.14.13"

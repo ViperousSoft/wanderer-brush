@@ -1,5 +1,5 @@
 const {ipcRenderer}=require("electron");
-let wsurl,brushing,iid;
+let wsurl,brushing=false,iid=null;
 
 function gete(id){
     return document.getElementById(id);
@@ -42,8 +42,9 @@ function brush(gn,tn,mode,cnt){
     if(iid!=null){
         window.clearInterval(iid);
     }
+    setmsg(gete("msg"),"info","Brushing");
+    gete("stop").toggleAttribute("disabled");
     brushing=true;
-    console.log(cnt);
     iid=window.setInterval(()=>{
         new Promise((res,rej)=>{
             try{
@@ -118,18 +119,26 @@ function brush(gn,tn,mode,cnt){
     }
     return;
 }*/
+function setmsg(e,type,msg){
+    e.innerHTML=msg;
+    e.setAttribute("class",type);
+}
 function start(){
+    let [gn,tn,mode,cnt]=data();
+    if(isNaN(cnt)||cnt<=0){
+        setmsg(gete("msg"),"error","Illegal Argument: Interval");
+        return;
+    }
     gete("start").toggleAttribute("disabled");
-    gete("stop").toggleAttribute("disabled");
     for(let k of document.getElementsByTagName("input")){
         k.toggleAttribute("disabled");
     }
-    let [gn,tn,mode,cnt]=data();
     if(gete("wsurl").value!==""){
         wsurl=gete("wsurl").value;
         brush(gn,tn,mode,cnt);
     }
     else{
+        setmsg(gete("msg"),"info","Fetching WebSocket URL");
         ipcRenderer.send("got",mode,gn);
     }
 }
@@ -140,6 +149,7 @@ function stop(){
         window.clearInterval(iid);
         iid=null;
     }
+    setmsg(gete("msg"),"info","Stopped");
     gete("start").toggleAttribute("disabled");
     gete("stop").toggleAttribute("disabled");
     for(let k of document.getElementsByTagName("input")){
