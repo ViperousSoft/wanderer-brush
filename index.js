@@ -1,5 +1,6 @@
 const {app,BrowserWindow,ipcMain,Menu}=require("electron");
 const got=require("got");
+let aboutwin,win;
 function seticon(win){
     switch(process.platform){
         case "win32":
@@ -11,39 +12,36 @@ function seticon(win){
         default:break;
     }
 }
-function aboutwindow(parent){
-    let win=new BrowserWindow({
-        show:false,
-        webPreferences:{
-            nodeIntegration:true,
-            contextIsolation:false
-        },
-        parent:parent
-    });
-    win.loadFile("about.html");
-    win.setMenu(null);
-    seticon(win);
-    win.once("ready-to-show",()=>{
-        win.show();
-    });
-}
-function mainwindow(){
-    let win=new BrowserWindow({
+function ready(){
+    
+    win=new BrowserWindow({
         show:false,
         webPreferences:{
             nodeIntegration:true,
             contextIsolation:false
         }
     });
+
+    aboutwin=new BrowserWindow({
+        show:false,
+        webPreferences:{
+            nodeIntegration:true,
+            contextIsolation:false
+        },
+        parent:win
+    });
+    aboutwin.loadFile("about.html");
+    aboutwin.setMenu(null);
+    seticon(aboutwin);
+    aboutwin.on("close",e=>{
+        e.preventDefault();
+        aboutwin.hide();
+    });
+
     let menu=Menu.buildFromTemplate([
         {
             label:"File",
             submenu:[
-                {
-                    label:"New Window",
-                    click:mainwindow,
-                    accelerator:"Ctrl+N"
-                },
                 {
                     label:"Exit",
                     click:()=>{app.quit();},
@@ -56,7 +54,7 @@ function mainwindow(){
             submenu:[
                 {
                     label:"About",
-                    click:()=>{aboutwindow(win)}
+                    click:()=>{aboutwin.show();}
                 }
             ]
         }
@@ -67,9 +65,6 @@ function mainwindow(){
     win.once("ready-to-show",()=>{
         win.show();
     });
-}
-function ready(){
-    mainwindow();
 }
 ipcMain.on("got",(e,a,b)=>{
     got(`https://wanderers.io/client/server/EU/${a}/${b}`).then(r=>{

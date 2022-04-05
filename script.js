@@ -55,9 +55,12 @@ function brush(gn,tn,mode,cnt){
                 });
                 sk.addEventListener("close",res);
             }
-            catch{
-                rej();
+            catch(e){
+                rej(e);
             }
+        }).catch((e)=>{
+            stop();
+            setmsg(gete("msg"),"error",e.message);
         });
     },cnt);
 }
