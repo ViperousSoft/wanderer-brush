@@ -1,5 +1,5 @@
 {
-  "name": "wanderer-brush",
+  "name": "wanderer_brush",
   "version": "0.5.1",
   "description": "Wanderer Brush Brushes Wanderers",
   "main": "index.js",
@@ -26,8 +26,7 @@
           "target": "msi",
           "arch": [
             "x64",
-            "ia32",
-            "arm64"
+            "ia32"
           ]
         }
       ]
