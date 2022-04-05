@@ -16,3 +16,6 @@ span.warning{
 span.info{
     color: black;
 }
+#msg{
+    font-weight: bold;
+}
