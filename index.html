@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <title>Wanderer Brush</title>
         <link href="style.css" type="text/css" rel="stylesheet">
         <script src="support.js"></script>
         <script src="script.js"></script>
@@ -9,6 +10,7 @@
     <body>
         <button id="start" onclick="start()">Start</button>
         <button id="stop" onclick="stop()" disabled>Stop</button>
+        <span id="msg"></span>
         <hr>
         Mode
         <br>
@@ -27,7 +29,7 @@
         <br>
         <input id="wsurl" type="text">
         <br>
-        Interval
+        <span style="color: red;">*</span>Interval
         <br>
         <input id="cnt" type="number" min="1">
     </body>

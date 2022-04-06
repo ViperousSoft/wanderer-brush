@@ -1,13 +1,7 @@
 const {app,BrowserWindow,ipcMain,Menu}=require("electron");
 const got=require("got");
-function window(){
-    let win=new BrowserWindow({
-        show:false,
-        webPreferences:{
-            nodeIntegration:true,
-            contextIsolation:false
-        }
-    });
+let aboutwin,win;
+function seticon(win){
     switch(process.platform){
         case "win32":
             win.setIcon(`${__dirname}/icon.ico`);
@@ -17,31 +11,60 @@ function window(){
             break;
         default:break;
     }
-    win.loadFile("index.html");
-    win.once("ready-to-show",()=>{
-        win.show();
-    });
 }
 function ready(){
+    
+    win=new BrowserWindow({
+        show:false,
+        webPreferences:{
+            nodeIntegration:true,
+            contextIsolation:false
+        }
+    });
+
+    aboutwin=new BrowserWindow({
+        show:false,
+        webPreferences:{
+            nodeIntegration:true,
+            contextIsolation:false
+        },
+        parent:win
+    });
+    aboutwin.loadFile("about.html");
+    aboutwin.setMenu(null);
+    seticon(aboutwin);
+    aboutwin.on("close",e=>{
+        e.preventDefault();
+        aboutwin.hide();
+    });
+
     let menu=Menu.buildFromTemplate([
         {
             label:"File",
             submenu:[
-                {
-                    label:"New Window",
-                    click:window,
-                    accelerator:"Ctrl+N"
-                },
                 {
                     label:"Exit",
                     click:()=>{app.quit();},
                     accelerator:"Ctrl+Q"
                 }
             ]
+        },
+        {
+            label:"Help",
+            submenu:[
+                {
+                    label:"About",
+                    click:()=>{aboutwin.show();}
+                }
+            ]
         }
     ]);
-    Menu.setApplicationMenu(menu);
-    window();
+    win.loadFile("index.html");
+    win.setMenu(menu);
+    seticon(win);
+    win.once("ready-to-show",()=>{
+        win.show();
+    });
 }
 ipcMain.on("got",(e,a,b)=>{
     got(`https://wanderers.io/client/server/EU/${a}/${b}`).then(r=>{

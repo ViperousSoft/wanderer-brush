@@ -1,7 +1,7 @@
 {
-  "name": "wanderer-brush",
-  "version": "0.5.1",
-  "description": "wanderer-brush brushes wanderers",
+  "name": "wanderer_brush",
+  "version": "0.6.0",
+  "description": "Wanderer Brush Brushes Wanderers",
   "main": "index.js",
   "homepage": "https://github.com/Tom-abc/wanderer-brush",
   "scripts": {
@@ -14,7 +14,7 @@
     "email": "wwlhsszq@163.com",
     "url": "https://github.com/Tom-abc"
   },
-  "license": "ISC",
+  "license": "GPL-3.0-or-later",
   "devDependencies": {
     "electron": "^16.1.0",
     "electron-builder": "^22.14.13"
@@ -23,11 +23,10 @@
     "win": {
       "target": [
         {
-          "target": "nsis",
+          "target": "msi",
           "arch": [
             "x64",
-            "ia32",
-            "arm64"
+            "ia32"
           ]
         }
       ]
@@ -39,18 +38,14 @@
           "target": "deb",
           "arch": [
             "x64",
-            "ia32",
-            "arm64",
-            "armv7l"
+            "ia32"
           ]
         },
         {
           "target": "rpm",
           "arch": [
             "x64",
-            "ia32",
-            "arm64",
-            "armv7l"
+            "ia32"
           ]
         }
       ]
