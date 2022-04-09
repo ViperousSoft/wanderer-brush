@@ -42,6 +42,7 @@ function brush(gn,tn,mode,cnt){
     if(iid!=null){
         window.clearInterval(iid);
     }
+    ipcRenderer.send("tostop");
     setmsg(gete("msg"),"info","Brushing");
     gete("stop").toggleAttribute("disabled");
     brushing=true;
@@ -129,9 +130,10 @@ function setmsg(e,type,msg){
 function start(){
     let [gn,tn,mode,cnt]=data();
     if(isNaN(cnt)||cnt<=0){
-        setmsg(gete("msg"),"error","Illegal Argument: Interval");
+        setmsg(gete("msg"),"error","Illegal argument: Interval");
         return;
     }
+    ipcRenderer.send("started");
     gete("start").toggleAttribute("disabled");
     for(let k of document.getElementsByTagName("input")){
         k.toggleAttribute("disabled");
@@ -146,7 +148,7 @@ function start(){
     }
 }
 function stop(){
-    if(!brushing)return;
+    ipcRenderer.send("stopped");
     brushing=false;
     if(iid!=null){
         window.clearInterval(iid);
@@ -167,6 +169,12 @@ ipcRenderer.on("gotr",(e,a)=>{
     gete("wsurl").value=wsurl=a;
     let [gn,tn,mode,cnt]=data();
     brush(gn,tn,mode,cnt);
+});
+ipcRenderer.on("start",()=>{
+    start();
+});
+ipcRenderer.on("stop",()=>{
+    stop();
 });
 window.onload=()=>{
     for(let k of document.getElementsByTagName("input")){
