@@ -1,4 +1,4 @@
-const {app,BrowserWindow,ipcMain,Menu,dialog}=require("electron");
+const {app,BrowserWindow,ipcMain,Menu}=require("electron");
 const got=require("got");
 const ready=()=>{
     const win=new BrowserWindow({

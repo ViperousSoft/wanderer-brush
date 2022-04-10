@@ -1,4 +1,4 @@
-const {ipcRenderer}=require("electron");
+const {ipcRenderer,shell}=require("electron");
 let wsurl,brushing=false,iid=null;
 
 function gete(id){
