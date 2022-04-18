@@ -3,19 +3,23 @@ input{
     border-radius: 4px;
 }
 body{
-    font-family: monospace;
     background-color: lightgray;
+}
+ul.sidebar{
+    list-style-type: none;
+}
+li a{
+    text-decoration: none;
+    display: block;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 6px 0px;
+    color: black;
     user-select: none;
 }
-span.error{
-    color: red;
+li a:hover:not(.active){
+    background-color: #efefef;
 }
-span.warning{
-    color: darkorange;
-}
-span.info{
-    color: black;
-}
-#msg{
-    font-weight: bold;
+li a.active{
+    background-color: white;
 }

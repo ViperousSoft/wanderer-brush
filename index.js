@@ -18,6 +18,16 @@ const ready=()=>{
         minimizable:false,
         maximizable:false
     });
+    const helpwin=new BrowserWindow({
+        show:false,
+        webPreferences:{
+            nodeIntegration:true,
+            contextIsolation:false
+        },
+        parent:win,
+        minimizable:false,
+        maximizable:false
+    });
     const menu=Menu.buildFromTemplate([
         {
             label:"File",
@@ -51,6 +61,11 @@ const ready=()=>{
             label:"Help",
             submenu:[
                 {
+                    label:"Help",
+                    click:()=>{helpwin.show();},
+                    accelerator:"Ctrl+H"
+                },
+                {
                     label:"About",
                     click:()=>{aboutwin.show();}
                 }
@@ -75,6 +90,14 @@ const ready=()=>{
         aboutwin.on("close",e=>{
             e.preventDefault();
             aboutwin.hide();
+        });
+
+        helpwin.loadFile("help.html");
+        helpwin.setMenu(null);
+        seticon(helpwin);
+        helpwin.on("close",e=>{
+            e.preventDefault();
+            helpwin.hide();
         });
 
         win.loadFile("index.html");
