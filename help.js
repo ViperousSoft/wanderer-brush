@@ -10,8 +10,8 @@ const htmls={
     `
     <h1>Generating Bots</h1>
     <p>This function helps you dominate the map.</p>
-    <p>To begin with, the group name and tribe name you enter will be exactly send to the server. If you leave the group name empty, lots of red and brown players will spawn. If you leave the tribe name empty, the bots' names will be like 'Tribe12345', the same as a random name given to the player when the group name is null.</p>
-    <p>Secondly, if you don't see any bot tribe when running this function, press F12 in your browser and open the console. Enter <i>CLIENT.Game.socket.url</i> and see if the output is identical to the fetched WebSocket URL. If so, just wait. If not so, you have to fill in the item with the URL in your browser.</p>
+    <p>To begin with, the group name and tribe name you enter will be exactly send to the server. If you leave the group name empty, lots of red and brown players will spawn. If you leave the tribe name empty, the bots' names will be like 'Tribe12345', the same as a random name given to the player when the group name is not specified.</p>
+    <p>Secondly, if you don't see any bot tribe when running this function, press F12 in your browser and open the console. Enter <i>CLIENT.Game.socket.url</i> and see if the output is identical to the fetched WebSocket URL. If so, just wait. If not so, you have to fill in the item with the URL shown in your browser.</p>
     <p>What's more, don't generate bots too frequently on one computer, or you risk being disconnected.</p>
     <p>Note that you have to open at least one tab in your browser to ensure the bots join the correct team.</p>
     `
