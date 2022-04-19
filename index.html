@@ -4,13 +4,14 @@
         <meta charset="utf-8">
         <title>Wanderer Brush</title>
         <link href="style.css" type="text/css" rel="stylesheet">
+        <link href="statusbar.css" type="text/css" rel="stylesheet">
         <script src="support.js"></script>
         <script src="script.js"></script>
     </head>
-    <body>
+    <body style="user-select: none;">
         <button id="start" onclick="start()">Start</button>
         <button id="stop" onclick="stop()" disabled>Stop</button>
-        <span id="msg"></span>
+        <span id="msg" style="font-weight: bold;"></span>
         <hr>
         Mode
         <br>
