@@ -8,7 +8,7 @@ body{
 ul.sidebar{
     list-style-type: none;
 }
-li a{
+ul.sidebar li a{
     text-decoration: none;
     display: block;
     border-radius: 6px;
@@ -17,9 +17,16 @@ li a{
     color: black;
     user-select: none;
 }
-li a:hover:not(.active){
+ul.sidebar li a:hover:not(.active){
     background-color: #efefef;
 }
-li a.active{
+ul.sidebar li a.active{
     background-color: white;
+}
+div.inactive{
+    display: none;
+}
+div.content{
+    padding: 10px;
+    margin: 0px;
 }
