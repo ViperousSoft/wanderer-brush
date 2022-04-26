@@ -125,7 +125,7 @@ function brush(gn,tn,mode,cnt){
 }*/
 function setmsg(e,type,msg){
     e.innerHTML=msg;
-    e.setAttribute("class",type);
+    e.setAttribute("status",type);
 }
 function start(){
     let [gn,tn,mode,cnt]=data();

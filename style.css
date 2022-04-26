@@ -9,7 +9,6 @@ ul.sidebar{
     list-style-type: none;
     padding: 6px;
     margin: 0px;
-    height: 100%;
 }
 ul.sidebar li a{
     text-decoration: none;
