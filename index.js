@@ -118,10 +118,8 @@ const ready=()=>{
     ipcMain.on("started",()=>{
         menu.getMenuItemById("start").enabled=false;
     });
-    ipcMain.on("stopping",()=>{
-        menu.getMenuItemById("stop").enabled=false;
-    });
     ipcMain.on("stopped",()=>{
+        menu.getMenuItemById("stop").enabled=false;
         menu.getMenuItemById("start").enabled=true;
     });
 }

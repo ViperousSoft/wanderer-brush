@@ -1,12 +1,9 @@
-span.statusbar{
-    font-weight: bold;
-}
-span.statusbar[status=error]{
+span.error{
     color: red;
 }
-span.statusbar[status=warning]{
+span.warning{
     color: darkorange;
 }
-span.statusbar[status=info]{
+span.info{
     color: black;
 }
