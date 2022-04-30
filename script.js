@@ -1,5 +1,28 @@
-const {ipcRenderer,shell}=require("electron");
-let wsurl,brushing=false,iid=null;
+const {ipcRenderer}=require("electron");
+const {EventEmitter}=require("events");
+let wsurl,iid=null;
+let tot,fin,closed;
+
+function prog(){
+    let prognum=gete("prognum");
+    let prog=gete("prog");
+    let prog2=gete("prog2");
+    let progbar=gete("progbar");
+    if(prognum.hasAttribute("nodisplay")){
+        prognum.toggleAttribute("nodisplay");
+        progbar.toggleAttribute("nodisplay");
+    }
+    prognum.innerHTML=`<span style="color: green;">${fin}</span>&nbsp;&nbsp;&nbsp;<span style="color: grey;">${closed}</span>&nbsp;&nbsp;&nbsp;${tot}`;
+    prog.style.width=`${fin*100/tot}%`;
+    prog2.style.width=`${closed*100/tot}%`;
+}
+function finprog(){
+    let prognum=gete("prognum");
+    let progbar=gete("progbar");
+    prognum.toggleAttribute("nodisplay");
+    progbar.toggleAttribute("nodisplay");
+}
+
 
 function gete(id){
     return document.getElementById(id);
@@ -16,7 +39,7 @@ function sleep(ms){
         if(brushing){
             sk.send(msgpack.encode(["hello",{name:tn,group:gn,mode:mode}]));
             //sk.send(msgpack.encode(["close"]));
-            //sk.send(msgpack.encode(["hello",{name:tn,group:gn,mode:mode}]));
+            //sk.send(msgpack.encode(["hello",{name:tn,group:gn,mode:mode}])); 
             //sk.send(msgpack.encode(["close"]));
             //sk.send(msgpack.encode(["hello",{name:tn,group:gn,mode:mode}]));
             //sk.send(msgpack.encode(["close"]));
@@ -38,30 +61,45 @@ function sleep(ms){
     }
     return;
 }*/
+let closer=new EventEmitter();
 function brush(gn,tn,mode,cnt){
     if(iid!=null){
         window.clearInterval(iid);
     }
     ipcRenderer.send("tostop");
-    setmsg(gete("msg"),"info","Brushing");
+    setmsg("msg","info","Brushing");
     gete("stop").toggleAttribute("disabled");
-    brushing=true;
+    tot=fin=closed=0;
     iid=window.setInterval(()=>{
         new Promise((res,rej)=>{
+            tot++;
+            prog();
             try{
                 let sk=new WebSocket(wsurl);
+                sk.addEventListener("close",()=>{
+                    if(sk.sent){
+                        fin++;
+                    }
+                    else{
+                        closed++;
+                    }
+                    prog();
+                });
+                closer.once("close",()=>{sk.close();});
+                sk.addEventListener("close",res);
                 sk.addEventListener("open",()=>{
-                    if(brushing)sk.send(msgpack.encode(["hello",{name:tn,group:gn,mode:mode}]));
+                    sk.send(msgpack.encode(["hello",{name:tn,group:gn,mode:mode}]));
+                    sk.sent=true;
                     window.setTimeout(()=>{sk.close();},300);
                 });
-                sk.addEventListener("close",res);
             }
             catch(e){
                 rej(e);
             }
-        }).catch((e)=>{
-            stop();
-            setmsg(gete("msg"),"error",e.message);
+        }).catch(e=>{
+            stop().then(()=>{
+                setmsg("msg","error",e.message);
+            });
         });
     },cnt);
 }
@@ -124,13 +162,14 @@ function brush(gn,tn,mode,cnt){
     return;
 }*/
 function setmsg(e,type,msg){
-    e.innerHTML=msg;
-    e.setAttribute("class",type);
+    let k=gete(e);
+    k.innerHTML=msg;
+    k.setAttribute("status",type);
 }
 function start(){
     let [gn,tn,mode,cnt]=data();
     if(isNaN(cnt)||cnt<=0){
-        setmsg(gete("msg"),"error","Illegal argument: Interval");
+        setmsg("msg","error","Illegal argument: Interval");
         return;
     }
     ipcRenderer.send("started");
@@ -143,20 +182,26 @@ function start(){
         brush(gn,tn,mode,cnt);
     }
     else{
-        setmsg(gete("msg"),"info","Fetching WebSocket URL");
+        setmsg("msg","info","Fetching WebSocket URL");
         ipcRenderer.send("got",mode,gn);
     }
 }
-function stop(){
-    ipcRenderer.send("stopped");
-    brushing=false;
+async function stop(){
     if(iid!=null){
         window.clearInterval(iid);
         iid=null;
     }
-    setmsg(gete("msg"),"info","Stopped");
-    gete("start").toggleAttribute("disabled");
+    closer.emit("close");
+    ipcRenderer.send("stopping");
+    setmsg("msg","info","Stopping");
     gete("stop").toggleAttribute("disabled");
+    while(fin+closed!=tot){
+        await sleep(5);
+    }
+    ipcRenderer.send("stopped");
+    setmsg("msg","info","Stopped");
+    gete("start").toggleAttribute("disabled");
+    
     for(let k of document.getElementsByTagName("input")){
         k.toggleAttribute("disabled");
     }
@@ -177,6 +222,7 @@ ipcRenderer.on("stop",()=>{
     stop();
 });
 window.onload=()=>{
+    closer.setMaxListeners(0);
     for(let k of document.getElementsByTagName("input")){
         k.setAttribute("spellcheck","false")
     }

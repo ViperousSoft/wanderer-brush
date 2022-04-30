@@ -11,7 +11,9 @@
     <body style="user-select: none;">
         <button id="start" onclick="start()">Start</button>
         <button id="stop" onclick="stop()" disabled>Stop</button>
-        <span id="msg" style="font-weight: bold;"></span>
+        <span id="msg" class="statusbar"></span>
+        <span id="progbar" class="progbar" style="width: 100px;" nodisplay><span id="prog" class="proggreen">&nbsp;</span><span id="prog2" class="proggrey">&nbsp;</span></span>
+        <span id="prognum" nodisplay></span>
         <hr>
         Mode
         <br>

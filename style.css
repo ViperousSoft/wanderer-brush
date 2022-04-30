@@ -7,8 +7,10 @@ body{
 }
 ul.sidebar{
     list-style-type: none;
+    padding: 6px;
+    margin: 0px;
 }
-li a{
+ul.sidebar li a{
     text-decoration: none;
     display: block;
     border-radius: 6px;
@@ -17,9 +19,30 @@ li a{
     color: black;
     user-select: none;
 }
-li a:hover:not(.active){
+ul.sidebar li a:hover:not(.active){
     background-color: #efefef;
 }
-li a.active{
+ul.sidebar li a.active{
     background-color: white;
+}
+[nodisplay]{
+    display: none !important;
+}
+div.content{
+    padding: 10px;
+    margin: 0px;
+}
+span.progbar{
+    background-color: #efefef;
+    display: inline-block;
+}
+span.proggreen{
+    background-color: green;
+    display: inline-block;
+    white-space: nowrap;
+}
+span.proggrey{
+    background-color: grey;
+    display: inline-block;
+    white-space: nowrap;
 }
