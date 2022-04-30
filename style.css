@@ -25,10 +25,24 @@ ul.sidebar li a:hover:not(.active){
 ul.sidebar li a.active{
     background-color: white;
 }
-div.inactive{
-    display: none;
+[nodisplay]{
+    display: none !important;
 }
 div.content{
     padding: 10px;
     margin: 0px;
+}
+span.progbar{
+    background-color: #efefef;
+    display: inline-block;
+}
+span.proggreen{
+    background-color: green;
+    display: inline-block;
+    white-space: nowrap;
+}
+span.proggrey{
+    background-color: grey;
+    display: inline-block;
+    white-space: nowrap;
 }

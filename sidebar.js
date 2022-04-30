@@ -8,13 +8,12 @@ window.onload=()=>{
             ch.index=i;
             if(i!=0){
                 ch.classList.add("inactive");
-                con.children.item(i).classList.add("inactive");
+                con.children.item(i).toggleAttribute("nodisplay");
             }
             else{
                 ch.classList.add("active");
             }
         }
-        con.children.item(0).classList.add("active");
     }
 }
 
@@ -23,8 +22,8 @@ function act(e){
     if(p.active==e.index)return;
     let con=document.getElementById(p.getAttribute("content"));
     p.children.item(p.active).firstElementChild.classList.replace("active","inactive");
-    con.children.item(p.active).classList.replace("active","inactive");
+    con.children.item(p.active).toggleAttribute("nodisplay");
     e.classList.replace("inactive","active");
-    con.children.item(e.index).classList.replace("inactive","active");
+    con.children.item(e.index).toggleAttribute("nodisplay");
     p.active=e.index;
 }
