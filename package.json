@@ -2,12 +2,12 @@
   "name": "wanderer_brush",
   "version": "0.8.0",
   "description": "Wanderer Brush Brushes Wanderers",
-  "main": "index.js",
   "homepage": "https://github.com/Tom-abc/wanderer-brush",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron .",
-    "build": "electron-builder"
+    "start": "electron ./packed/main.js",
+    "build": "electron-builder",
+    "asdfghjkl": "webpack --config webpack.config.ts"
   },
   "author": {
     "name": "ViperousSoft",
@@ -16,8 +16,23 @@
   },
   "license": "GPL-3.0-or-later",
   "devDependencies": {
+    "@types/node": "^17.0.33",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
+    "@types/webpack": "^5.28.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.1",
     "electron": "^16.1.0",
-    "electron-builder": "^22.14.13"
+    "electron-builder": "^22.14.13",
+    "file-loader": "^6.2.0",
+    "glob": "^8.0.3",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.3.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
   },
   "build": {
     "win": {
@@ -53,7 +68,7 @@
   },
   "dependencies": {
     "got": "^11.8.3",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.4"
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
   }
 }

@@ -25,7 +25,7 @@ ul.sidebar li a:hover:not(.active){
 ul.sidebar li a.active{
     background-color: white;
 }
-[nodisplay]{
+.nodisplay{
     display: none !important;
 }
 div.content{

@@ -301,3 +301,4 @@ window.onload=()=>{
         inputs[i].setAttribute("spellcheck","false");
     }
 };
+export {start,stop};

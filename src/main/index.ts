@@ -1,5 +1,7 @@
-const {app,BrowserWindow,ipcMain,Menu}=require("electron");
-const got=require("got");
+import {app,BrowserWindow,ipcMain,Menu} from "electron";
+import got from "got";
+import icon from "./res/icon.ico";
+import png from "./res/icons/256x256.png";
 const ready=()=>{
     const win=new BrowserWindow({
         show:false,
@@ -72,18 +74,19 @@ const ready=()=>{
             ]
         }
     ]);
-    function seticon(win){
+    function seticon(win:BrowserWindow){
         switch(process.platform){
             case "win32":
-                win.setIcon(`${__dirname}/icon.ico`);
+                win.setIcon(icon);
                 break;
             case "linux":
-                win.setIcon(`${__dirname}/icons/256x256.png`);
+                win.setIcon(png);
                 break;
             default:break;
         }
     }
     {
+
         aboutwin.loadFile("about.html");
         aboutwin.setMenu(null);
         seticon(aboutwin);
@@ -101,7 +104,7 @@ const ready=()=>{
         });
 
         win.loadFile("index.html");
-        win.setMenu(menu);
+        //win.setMenu(menu);
         seticon(win);
         win.once("ready-to-show",()=>{
             win.show();
@@ -113,16 +116,20 @@ const ready=()=>{
         });
     });
     ipcMain.on("tostop",()=>{
-        menu.getMenuItemById("stop").enabled=true;
+        let k=menu.getMenuItemById("stop")!;
+        k.enabled=true;
     });
     ipcMain.on("started",()=>{
-        menu.getMenuItemById("start").enabled=false;
+        let k=menu.getMenuItemById("start")!;
+        k.enabled=false;
     });
     ipcMain.on("stopping",()=>{
-        menu.getMenuItemById("stop").enabled=false;
+        let k=menu.getMenuItemById("stop")!;
+        k.enabled=false;
     });
     ipcMain.on("stopped",()=>{
-        menu.getMenuItemById("start").enabled=true;
+        let k=menu.getMenuItemById("start")!;
+        k.enabled=true;
     });
 }
 app.on("ready",ready);
